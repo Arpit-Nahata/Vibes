@@ -1641,7 +1641,6 @@ window.createGroup=async()=>{
 /* ─────────────────────────────────────────────────────
    PROFILE
 ───────────────────────────────────────────────────── */
-}
 window.openProfile=()=>{
   document.getElementById('profile-name-input').value=currentUser.displayName||'';
   document.getElementById('profile-error').style.display='none';
@@ -1652,23 +1651,6 @@ window.openProfile=()=>{
   picBig.className='profile-pic-big '+getColor(currentUser.uid);
   document.getElementById('profile-modal').classList.add('open');
 };
-// Image compression helper
-    const img=new Image();const url=URL.createObjectURL(file);
-    img.onload=()=>{
-      URL.revokeObjectURL(url);
-      let{width:w,height:h}=img;
-      if(w>maxW){const s=maxW/w;w=Math.round(w*s);h=Math.round(h*s)}
-      const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
-      canvas.getContext('2d').drawImage(img,0,0,w,h);
-      canvas.toBlob(blob=>{
-        if(!blob){resolve(file);return}
-        resolve(new File([blob],file.name.replace(/\.\w+$/,'.jpg'),{type:'image/jpeg'}));
-      },'image/jpeg',quality);
-    };
-    img.onerror=()=>{URL.revokeObjectURL(url);resolve(file)};
-    img.src=url;
-  });
-}
 window.saveProfile=async()=>{
   const name=document.getElementById('profile-name-input').value.trim();
   const err=document.getElementById('profile-error');
