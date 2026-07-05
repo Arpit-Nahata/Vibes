@@ -1540,37 +1540,6 @@ window.setReply=(id,text,senderName)=>{
 };
 window.clearReply=()=>{replyTo=null;document.getElementById('reply-preview').classList.add('hidden')};
 
-/* ─────────────────────────────────────────────────────
-   FILE UPLOAD
-───────────────────────────────────────────────────── */
-  const errEl=document.getElementById('upload-error');
-  const prog=document.getElementById('upload-progress');
-  const bar=document.getElementById('upload-progress-bar');
-  for(const file of files){
-    errEl.style.display='none';
-    const isImg=file.type.startsWith('image/');
-    const isVid=file.type.startsWith('video/');
-    const isAud=file.type.startsWith('audio/');
-    const allowedImg=['image/jpeg','image/jpg','image/png','image/webp','image/gif'];
-    if(isImg&&!allowedImg.includes(file.type)){
-      errEl.textContent='Unsupported image format. Use JPG, PNG, WEBP or GIF.';errEl.style.display='block';continue;
-    }
-    const maxSize=isImg?10*1024*1024:50*1024*1024;
-    if(file.size>maxSize){
-      errEl.textContent=`"${file.name}" is too large. Max ${isImg?'10MB':'50MB'}.`;errEl.style.display='block';continue;
-    }
-    // sanitize filename
-    const safeName=file.name.replace(/[^a-zA-Z0-9._\-]/g,'_').slice(0,100)||'file';
-    let uploadFile=file;
-    // compress images (not gifs)
-    if(isImg&&file.type!=='image/gif'){
-      }
-    prog.style.display='block';bar.style.width='0%';
-    try{
-      const path=`chat-files/${activeConvId}/${Date.now()}_${safeName}`;
-      const storRef=ref(storage,path);
-}
-
 
 /* ─────────────────────────────────────────────────────
    REACTIONS
